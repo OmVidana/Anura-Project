@@ -4,35 +4,31 @@ using UnityEngine;
 
 namespace Anura
 {
-    public class IdleState : MoveState
+    public class JumpState : State
     {
-        public IdleState(MovementStateMachine movementStateMachine) : base(movementStateMachine)
-        {
-        }
-
         public override void OnEnter()
         {
-            Debug.Log("Idle");
+            throw new System.NotImplementedException();
         }
 
         public override void OnExit()
         {
-            
+            throw new System.NotImplementedException();
         }
 
-        public override void OnInput()
+        public override void OnHandle()
         {
-            
+            throw new System.NotImplementedException();
         }
 
         public override void Update()
         {
-            
+            throw new System.NotImplementedException();
         }
 
         public override void PhysicsUpdate()
         {
-            
+            throw new System.NotImplementedException();
         }
     }
 }

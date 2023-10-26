@@ -34,7 +34,7 @@ namespace Anura
 
         private void Update()
         {
-            _movementMovementStateMachine.InputHandling();
+            _movementMovementStateMachine.OnHandle();
             _movementMovementStateMachine.Update();
         }
 
