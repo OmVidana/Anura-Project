@@ -2,7 +2,7 @@ namespace Anura
 {
     public class StateMachine
     {
-        private State _currentState ;
+        private State _currentState;
         public void ChangeState(State newState)
         {
             _currentState?.OnExit();
@@ -23,6 +23,11 @@ namespace Anura
         public void PhysicsUpdate()
         {
             _currentState?.PhysicsUpdate();
+        }
+
+        public State returnCurrent()
+        {
+            return _currentState;
         }
     }
 }

@@ -15,27 +15,42 @@ namespace Anura
 
         public override void OnEnter()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Idle");
         }
 
         public override void OnExit()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override void OnHandle()
         {
-            throw new System.NotImplementedException();
+            _stateMachine.ObtainInput();
+            if (!_stateMachine.Player.isActive)
+                _stateMachine.ChangeState(_stateMachine.FollowingState);
+            else
+            {
+                if (!_stateMachine.Player.Input.actions["Sprint"].IsPressed())
+                    _stateMachine.ChangeState(_stateMachine.WalkingState);
+                if (_stateMachine.Player.Input.actions["Sprint"].IsPressed())
+                    _stateMachine.ChangeState(_stateMachine.RunningState);
+                if (_stateMachine.Player.Input.actions["Jump"].triggered)
+                    _stateMachine.ChangeState(_stateMachine.JumpingState);
+                if (_stateMachine.Player.Input.actions["Switch"].triggered)
+                {
+                    _stateMachine.ChangeState(_stateMachine.FollowingState);
+                }
+            }
         }
 
         public override void Update()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override void PhysicsUpdate()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

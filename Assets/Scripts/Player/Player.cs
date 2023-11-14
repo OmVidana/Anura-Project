@@ -8,39 +8,41 @@ namespace Anura
 {
     public class Player : MonoBehaviour
     {
-        private MovementStateMachine _movementMovementStateMachine;
+        public MovementStateMachine movementStateMachine;
         public Rigidbody2D PlayerRB { get; private set; }
         public PlayerInput Input { get; private set; }
 
-        [Header("Character Settings")]
-        public float walkingSpeed;
+        [Header("Character Settings")] public float walkingSpeed;
         public float crouchingSpeed;
         public float runningSpeed;
-        public float jumpHeight;
+        public float jumpForce;
         public int attackDmg;
         public float health;
-        
+        [NonSerialized]
+        public bool isGrounded;
+        public bool isActive;
+
         private void Awake()
         {
             PlayerRB = GetComponent<Rigidbody2D>();
             Input = GetComponent<PlayerInput>();
-            _movementMovementStateMachine = new MovementStateMachine(this);
+            movementStateMachine = new MovementStateMachine(this);
         }
 
         private void Start()
         {
-            _movementMovementStateMachine.ChangeState(_movementMovementStateMachine.IdleState); 
+            movementStateMachine.ChangeState(movementStateMachine.IdleState);
         }
 
         private void Update()
         {
-            _movementMovementStateMachine.OnHandle();
-            _movementMovementStateMachine.Update();
+            movementStateMachine.OnHandle();
+            movementStateMachine.Update();
         }
 
         private void FixedUpdate()
         {
-            _movementMovementStateMachine.PhysicsUpdate();
+            movementStateMachine.PhysicsUpdate();
         }
     }
 }

@@ -15,27 +15,38 @@ namespace Anura
 
         public override void OnEnter()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Is Following " + _stateMachine.Player.transform.name);
+
+            _stateMachine.Player.isActive = false;
         }
 
         public override void OnExit()
         {
-            throw new System.NotImplementedException();
+            _stateMachine.Player.isActive = true;
         }
 
         public override void OnHandle()
         {
-            throw new System.NotImplementedException();
+            _stateMachine.ObtainInput();
+            if (_stateMachine.Player.Input.actions["Switch"].triggered)
+            {
+                _stateMachine.ChangeState(_stateMachine.IdleState);
+            }
         }
 
         public override void Update()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override void PhysicsUpdate()
         {
-            throw new System.NotImplementedException();
+            
+        }
+
+        private void Follow()
+        {
+            
         }
     }
 }

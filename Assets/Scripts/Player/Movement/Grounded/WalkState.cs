@@ -7,7 +7,6 @@ namespace Anura
     public class WalkState : State
     {
         private readonly MovementStateMachine _stateMachine;
-        private Vector2 _movementInput;
 
         public WalkState(MovementStateMachine stateMachine)
         {
@@ -16,32 +15,37 @@ namespace Anura
 
         public override void OnEnter()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Walk");
         }
 
         public override void OnExit()
         {
-            throw new System.NotImplementedException();
         }
 
         public override void OnHandle()
         {
-            _movementInput = _stateMachine.Player.Input.actions["Move"].ReadValue<Vector2>();
+            _stateMachine.ObtainInput();
+            if (_stateMachine.MovementInput.x == 0f)
+                _stateMachine.ChangeState(_stateMachine.IdleState);
+            if (_stateMachine.Player.Input.actions["Sprint"].IsPressed())
+                _stateMachine.ChangeState(_stateMachine.RunningState);
+            if (_stateMachine.Player.Input.actions["Jump"].triggered)
+                _stateMachine.ChangeState(_stateMachine.JumpingState);
+            if (_stateMachine.Player.Input.actions["Switch"].triggered)
+            {
+                _stateMachine.ChangeState(_stateMachine.FollowingState);
+            }
         }
 
         public override void Update()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override void PhysicsUpdate()
         {
-            if (_movementInput == Vector2.zero)
-                return;
-            Vector2 moveDirection = new Vector2(_movementInput.x, 0);
-            Vector2 currentHorizontalSpeed = new Vector2(_stateMachine.Player.PlayerRB.velocity.x, 0);
-            float speed = _stateMachine.Player.walkingSpeed;
-            _stateMachine.Player.PlayerRB.AddForce(moveDirection * speed - currentHorizontalSpeed, (ForceMode2D)ForceMode.VelocityChange);
+            _stateMachine.Move(_stateMachine.Player.walkingSpeed);
+            _stateMachine.Rotate();
         }
     }
 }
