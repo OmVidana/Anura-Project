@@ -1,23 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Anura
 {
-    public class FollowState : State
+    public class DisableState : State
     {
-        private readonly MovementStateMachine _stateMachine;
-        
-        public FollowState(MovementStateMachine stateMachine)
+        private MovementStateMachine _stateMachine;
+
+        public DisableState(MovementStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
         }
 
         public override void OnEnter()
         {
-            Debug.Log("Is Following " + _stateMachine.Player.transform.name);
-
-            _stateMachine.Player.isActive = false;
+            if (_stateMachine.Player.isActive)
+                _stateMachine.Player.isActive = false;
         }
 
         public override void OnExit()
@@ -27,26 +27,19 @@ namespace Anura
 
         public override void OnHandle()
         {
-            _stateMachine.ObtainInput();
             if (_stateMachine.Player.Input.actions["Switch"].triggered)
             {
+                Debug.Log(_stateMachine.Player.transform.name);
                 _stateMachine.ChangeState(_stateMachine.IdleState);
             }
         }
 
         public override void Update()
         {
-            
         }
 
         public override void PhysicsUpdate()
         {
-            
-        }
-
-        private void Follow()
-        {
-            
         }
     }
 }

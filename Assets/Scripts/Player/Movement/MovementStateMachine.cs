@@ -9,7 +9,7 @@ namespace Anura
         public Vector2 MovementInput;
         public Player Player { get; }
         public IdleState IdleState { get; }
-        public FollowState FollowingState { get; }
+        public DisableState DisableState { get; }
         public WalkState WalkingState { get; }
         public RunState RunningState { get; }
         public JumpState JumpingState { get; }
@@ -18,7 +18,7 @@ namespace Anura
         {
             Player = player;
             IdleState = new IdleState(this);
-            FollowingState = new FollowState(this);
+            DisableState = new DisableState(this);
             WalkingState = new WalkState(this);
             RunningState = new RunState(this);
             JumpingState = new JumpState(this);
@@ -34,15 +34,17 @@ namespace Anura
         {
             if (MovementInput == Vector2.zero)
                 return;
-            Vector2 moveDirection = new Vector2(MovementInput.x, 0);
-            Vector2 currentHorizontalSpeed = new Vector2(Player.PlayerRB.velocity.x, 0);
-            float speed = givenSpeed;
-            Player.PlayerRB.AddForce(moveDirection * speed - currentHorizontalSpeed, (ForceMode2D)ForceMode.VelocityChange);
+            
+            Player.PlayerRB.velocity = givenSpeed * new Vector2(MovementInput.x, 0);
         }
 
-        public void Rotate()
+        public void PlayerDirection()
         {
-            // Player.transform.rotation = Quaternion.Euler(0, 180 * Mathf.Clamp(MovementInput.x, -1, 0),0);
+            if (Player.isFacingRight && MovementInput.x < 0f || !Player.isFacingRight && MovementInput.x > 0f)
+            {
+                Player.isFacingRight = !Player.isFacingRight;
+                Player.SpriteRenderer.flipX = !Player.isFacingRight;
+            }
         }
     }
 }

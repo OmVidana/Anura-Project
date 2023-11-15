@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Anura
 {
@@ -13,15 +12,11 @@ namespace Anura
         
         private void Awake()
         {
-        
-        }
-
-        private void Start()
-        {
             Anura.isActive = true;
-            Anura.movementStateMachine.ChangeState(Anura.movementStateMachine.IdleState);
-            Uri.isActive = true;
-            Anura.movementStateMachine.ChangeState(Anura.movementStateMachine.IdleState);
+            Anura.startState = Anura.movementStateMachine.IdleState;
+            
+            Uri.isActive = false;
+            Uri.startState = Uri.movementStateMachine.DisableState;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Anura
 {
     public class RunState : State
     {
-        private readonly MovementStateMachine _stateMachine;
+        private MovementStateMachine _stateMachine;
 
         public RunState(MovementStateMachine stateMachine)
         {
@@ -15,7 +15,7 @@ namespace Anura
 
         public override void OnEnter()
         {
-            Debug.Log("Running");
+            
         }
 
         public override void OnExit()
@@ -34,7 +34,7 @@ namespace Anura
                 _stateMachine.ChangeState(_stateMachine.JumpingState);
             if (_stateMachine.Player.Input.actions["Switch"].triggered)
             {
-                _stateMachine.ChangeState(_stateMachine.FollowingState);
+                _stateMachine.ChangeState(_stateMachine.DisableState);
             }
         }
 
@@ -46,7 +46,7 @@ namespace Anura
         public override void PhysicsUpdate()
         {
             _stateMachine.Move(_stateMachine.Player.runningSpeed);
-            _stateMachine.Rotate();
+            _stateMachine.PlayerDirection();
         }
     }
 }
