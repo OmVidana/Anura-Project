@@ -9,11 +9,6 @@ namespace Anura
             _currentState = newState;
             _currentState.OnEnter();
         }
-
-        public void OnHandle()
-        {
-            _currentState?.OnHandle();
-        }
         
         public void Update()
         {

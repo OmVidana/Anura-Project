@@ -6,45 +6,43 @@ namespace Anura
 {
     public class IdleState : State
     {
-        private MovementStateMachine _stateMachine;
+        private readonly MovementStateMachine _stateMachine;
+        private Player _player;
+        private PlayerParameters _playerData;
 
         public IdleState(MovementStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
+            _player = stateMachine.Player;
+            _playerData = _player.playerData;
         }
 
         public override void OnEnter()
         {
-            
+            // _player.playerAnimator.Play("Idle");
         }
 
         public override void OnExit()
         {
-            
-        }
-
-        public override void OnHandle()
-        {
-            if (!_stateMachine.Player.Input.actions["Sprint"].IsPressed())
-                _stateMachine.ChangeState(_stateMachine.WalkingState);
-            if (_stateMachine.Player.Input.actions["Sprint"].IsPressed())
-                _stateMachine.ChangeState(_stateMachine.RunningState);
-            if (_stateMachine.Player.Input.actions["Jump"].triggered)
-                _stateMachine.ChangeState(_stateMachine.JumpingState);
-            if (_stateMachine.Player.Input.actions["Switch"].triggered)
-            {
-                _stateMachine.ChangeState(_stateMachine.DisableState);
-            }
         }
 
         public override void Update()
         {
-            
+            SwitchState();
         }
 
         public override void PhysicsUpdate()
         {
-            
+        }
+
+        public override void SwitchState()
+        {
+            if (_player.MovementInput().x != 0)
+                _stateMachine.ChangeState(_stateMachine.WalkingState);
+            if (_player.input.actions["Sprint"].triggered)
+                _stateMachine.ChangeState(_stateMachine.RunningState);
+            if (_player.input.actions["Jump"].triggered && _player.IsGrounded())
+                _stateMachine.ChangeState(_stateMachine.JumpingState);
         }
     }
 }

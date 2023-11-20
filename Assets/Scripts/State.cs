@@ -6,8 +6,8 @@ namespace Anura
     {
         public abstract void OnEnter();
         public abstract void OnExit();
-        public abstract void OnHandle();
         public abstract void Update();
         public abstract void PhysicsUpdate();
+        public abstract void SwitchState();
     }
 }
