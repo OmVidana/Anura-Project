@@ -6,11 +6,15 @@ namespace Anura
 {
     public class RunState : State
     {
-        private MovementStateMachine _stateMachine;
+        private readonly MovementStateMachine _stateMachine;
+        private Player _player;
+        private PlayerParameters _playerData;
 
         public RunState(MovementStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
+            _player = stateMachine.Player;
+            _playerData = stateMachine.Player.playerData;
         }
 
         public override void OnEnter()
@@ -23,30 +27,25 @@ namespace Anura
             
         }
 
-        public override void OnHandle()
-        {
-            _stateMachine.ObtainInput();
-            if (_stateMachine.MovementInput.x == 0f)
-                _stateMachine.ChangeState(_stateMachine.IdleState);
-            if (!_stateMachine.Player.Input.actions["Sprint"].IsPressed())
-                _stateMachine.ChangeState(_stateMachine.WalkingState);
-            if (_stateMachine.Player.Input.actions["Jump"].triggered)
-                _stateMachine.ChangeState(_stateMachine.JumpingState);
-            if (_stateMachine.Player.Input.actions["Switch"].triggered)
-            {
-                _stateMachine.ChangeState(_stateMachine.DisableState);
-            }
-        }
-
         public override void Update()
         {
-            
+            _player.PlayerDirection();
+            SwitchState();
         }
 
         public override void PhysicsUpdate()
         {
-            _stateMachine.Move(_stateMachine.Player.runningSpeed);
-            _stateMachine.PlayerDirection();
+            _player.Move(_playerData.RunningSpeed);
+        }
+        
+        public override void SwitchState()
+        {
+            if (_player.MovementInput().x == 0f)
+                _stateMachine.ChangeState(_stateMachine.IdleState);
+            if (!_player.input.actions["Sprint"].IsPressed())
+                _stateMachine.ChangeState(_stateMachine.WalkingState);
+            if (_player.input.actions["Jump"].triggered && _player.IsGrounded())
+                _stateMachine.ChangeState(_stateMachine.JumpingState);
         }
     }
 }
