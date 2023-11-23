@@ -17,6 +17,7 @@ namespace Anura
 
         public void Reiniciar()
         {
+            Time.timeScale = 1f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }

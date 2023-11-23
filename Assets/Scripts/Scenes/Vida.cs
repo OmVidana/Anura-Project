@@ -32,7 +32,6 @@ public class Vida : MonoBehaviour
         {
             case 8:
                 Health.sprite = spriteArray[0];
-                Time.timeScale = 1f;
                 break;
             case 7:
                 Health.sprite = spriteArray[1];

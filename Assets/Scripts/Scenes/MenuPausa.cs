@@ -20,12 +20,14 @@ public class MenuPausa : MonoBehaviour
             if (juegoPausado)
             {
                 Reanudar();
-            } else
+            }
+            else
             {
                 Pausa();
             }
         }
     }
+
     public void Pausa()
     {
         juegoPausado = true;
