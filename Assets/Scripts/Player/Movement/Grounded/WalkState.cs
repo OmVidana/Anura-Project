@@ -19,6 +19,7 @@ namespace Anura
         public override void OnEnter()
         {
             // _player.playerAnimator.Play("Walk");
+            Debug.Log("Walk");
         }
 
         public override void OnExit()

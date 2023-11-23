@@ -47,6 +47,7 @@ namespace Anura
         
         public Vector2 MovementInput()
         {
+            Debug.Log(input.actions["Move"].ReadValue<Vector2>());
             return input.actions["Move"].ReadValue<Vector2>();
         }
 
