@@ -15,6 +15,7 @@ MonoBehaviour:
   <WalkingSpeed>k__BackingField: 3
   <RunningSpeed>k__BackingField: 5
   <JumpForce>k__BackingField: 16.5
+  <JumpDownForce>k__BackingField: -3
   <GroundOffset>k__BackingField: 0.1
   <Ground>k__BackingField:
     serializedVersion: 2

@@ -17,7 +17,7 @@ namespace Anura
         public PlayerParameters playerData;
 
         private bool _isGrounded;
-
+        private bool _applyDownForce = false;
         private bool _isFacingRight = true;
         
         private void Awake()
@@ -38,6 +38,7 @@ namespace Anura
         private void Update()
         {
             movementStateMachine.Update();
+            AfterJump();
         }
 
         private void FixedUpdate()
@@ -78,6 +79,16 @@ namespace Anura
         public void Jump()
         {
             playerRB.AddForce(new Vector2(0, playerData.JumpForce), ForceMode2D.Impulse);
+        }
+
+        private void AfterJump()
+        {
+            if (!IsGrounded() && playerRB.velocity.y < 0f)
+            {
+                if (!_applyDownForce)
+                    playerRB.AddForce(new Vector2(0, playerData.JumpDownForce), ForceMode2D.Impulse);
+                _applyDownForce = true;
+            }
         }
     }
 }
