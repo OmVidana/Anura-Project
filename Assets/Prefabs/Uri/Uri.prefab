@@ -251,5 +251,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 0}
-  playerRB: {fileID: 0}
+  playerRB: {fileID: 1962316188476748025}
   playerData: {fileID: 11400000, guid: 8578b5304bb1f1044a103aa012989c59, type: 2}

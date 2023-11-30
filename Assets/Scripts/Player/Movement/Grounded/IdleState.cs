@@ -40,7 +40,7 @@ namespace Anura
         {
             if (_player.MovementInput().x != 0)
                 _stateMachine.ChangeState(_stateMachine.WalkingState);
-            if (_player.input.actions["Sprint"].triggered)
+            if (_player.input.actions["Sprint"].IsPressed())
                 _stateMachine.ChangeState(_stateMachine.RunningState);
             if (_player.input.actions["Jump"].triggered && _player.IsGrounded())
                 _stateMachine.ChangeState(_stateMachine.JumpingState);

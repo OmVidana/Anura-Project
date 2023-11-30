@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9425e06f78a718d4d8eafb794168897d, type: 3}
   m_Name: UriParameters
   m_EditorClassIdentifier: 
-  <WalkingSpeed>k__BackingField: 2.5
-  <RunningSpeed>k__BackingField: 3
+  <WalkingSpeed>k__BackingField: 3
+  <RunningSpeed>k__BackingField: 4
   <JumpForce>k__BackingField: 8.5
   <GroundOffset>k__BackingField: 0.1
   <Ground>k__BackingField:
