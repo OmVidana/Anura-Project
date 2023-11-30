@@ -12,11 +12,11 @@ public class Vida : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Sprite[] spriteArray;
     public Image Health;
-    public int Life = 8;
+    public int Life = 4;
     // Start is called before the first frame update
     public void Start()
     {
-
+        Time.timeScale = 1f;
     }
 
 
@@ -30,37 +30,25 @@ public class Vida : MonoBehaviour
         }
         switch (Life)
         {
-            case 8:
+            case 4:
                 Health.sprite = spriteArray[0];
                 break;
-            case 7:
+            case 3:
                 Health.sprite = spriteArray[1];
                 break;
-            case 6:
+            case 2:
                 Health.sprite = spriteArray[2];
                 break;
-            case 5:
+            case 1:
                 Health.sprite = spriteArray[3];
                 break;
-            case 4:
-                Health.sprite = spriteArray[4];
-                break;
-            case 3:
-                Health.sprite = spriteArray[5];
-                break;
-            case 2:
-                Health.sprite = spriteArray[6];
-                break;
-            case 1:
-                Health.sprite = spriteArray[7];
-                break;
             case 0:
-                Health.sprite = spriteArray[8];
+                Health.sprite = spriteArray[4];
                 Time.timeScale = 0f;
                 GameOver.SetActive(true);
                 break;
             default:
-                Life = 8;
+                Life = 4;
                 break;
         }
 
