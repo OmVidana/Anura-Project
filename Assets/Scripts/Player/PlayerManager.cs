@@ -37,8 +37,9 @@ namespace Anura
         {
             if (_input.actions["Switch"].triggered && !_onCooldownSwitch && _activePlayer.GetComponent<Player>().IsGrounded())
             {
-                _disablePlayer.transform.position = _activePlayer.transform.position + new Vector3(0, anura.transform.localScale.y * 0.5f, 0);
-                _disablePlayer.transform.rotation = _activePlayer.transform.rotation;
+                _disablePlayer.transform.position = _activePlayer.transform.position + new Vector3(0, 0.5f,0);
+                _disablePlayer.GetComponent<SpriteRenderer>().flipX =
+                    _activePlayer.GetComponent<SpriteRenderer>().flipX;
                 StartCoroutine(SwitchActivePlayer());
             }
         }

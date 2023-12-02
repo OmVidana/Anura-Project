@@ -15,10 +15,7 @@ namespace Anura
         private CapsuleCollider2D _collider2D;
         [NonSerialized] public PlayerInput input;
         public PlayerParameters playerData;
-
-        private bool _isGrounded;
-        private bool _applyDownForce = false;
-        private bool _isFacingRight = true;
+        [NonSerialized] public bool isGrounded;
         
         private void Awake()
         {
@@ -38,17 +35,18 @@ namespace Anura
         private void Update()
         {
             movementStateMachine.Update();
-            AfterJump();
+            isGrounded = IsGrounded();
+            playerAnimator.SetBool("IsGrounded", isGrounded);
         }
 
         private void FixedUpdate()
         {
-            movementStateMachine.PhysicsUpdate();
+            movementStateMachine.PhysicsUpdate();            
+            AfterJump();
         }
         
         public Vector2 MovementInput()
         {
-            Debug.Log(input.actions["Move"].ReadValue<Vector2>());
             return input.actions["Move"].ReadValue<Vector2>();
         }
 
@@ -62,10 +60,9 @@ namespace Anura
 
         public void PlayerDirection()
         {
-            if (_isFacingRight && MovementInput().x < 0f || !_isFacingRight && MovementInput().x > 0f)
+            if (!SpriteRenderer.flipX && MovementInput().x < 0f || SpriteRenderer.flipX && MovementInput().x > 0f)
             {
-                _isFacingRight = !_isFacingRight;
-                SpriteRenderer.flipX = !_isFacingRight;
+                SpriteRenderer.flipX = !SpriteRenderer.flipX;
             }
         }
 
@@ -73,7 +70,8 @@ namespace Anura
         {
             Vector2 boxOrigin = new Vector2(_collider2D.transform.position.x, _collider2D.bounds.min.y);
             Vector2 boxSize = new Vector2(_collider2D.size.x, playerData.GroundOffset);
-            return Physics2D.BoxCast(boxOrigin, boxSize, 0, Vector2.down, playerData.GroundOffset, playerData.Ground);
+            isGrounded = Physics2D.BoxCast(boxOrigin, boxSize, 0, Vector2.down, playerData.GroundOffset, playerData.Jumpable);
+            return isGrounded;
         }
 
         public void Jump()
@@ -83,11 +81,9 @@ namespace Anura
 
         private void AfterJump()
         {
-            if (!IsGrounded() && playerRB.velocity.y < 0f)
-            {
-                if (!_applyDownForce)
-                    playerRB.AddForce(new Vector2(0, playerData.JumpDownForce), ForceMode2D.Impulse);
-                _applyDownForce = true;
+            if (!isGrounded && playerRB.velocity.y < 0.5f && playerRB.velocity.y > playerData.MaxJumpDeceleration)
+            { 
+                playerRB.AddForce(new Vector2(0, playerData.JumpDownForce), ForceMode2D.Impulse);
             }
         }
     }

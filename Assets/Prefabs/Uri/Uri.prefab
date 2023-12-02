@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.25, y: -2.25, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,8 +99,8 @@ Animator:
   m_GameObject: {fileID: 1748775407513772848}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
+  m_Controller: {fileID: 9100000, guid: 1c9a2154ccbff544282dd6d26c23f6b8, type: 2}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -169,8 +169,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.9, y: 0.9}
+  m_Offset: {x: 0, y: 0.525}
+  m_Size: {x: 0.6, y: 1}
   m_Direction: 0
 --- !u!114 &3210018483478105053
 MonoBehaviour:
@@ -250,6 +250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58dc88fff195167439f6b2917f17d026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAnimator: {fileID: 0}
+  playerAnimator: {fileID: 415896649776995659}
   playerRB: {fileID: 1962316188476748025}
   playerData: {fileID: 11400000, guid: 8578b5304bb1f1044a103aa012989c59, type: 2}

@@ -19,12 +19,13 @@ namespace Anura
 
         public override void OnEnter()
         {
-            
+            _player.playerAnimator.SetBool("IsRunning", true);
         }
 
         public override void OnExit()
         {
-            
+            _player.playerAnimator.SetBool("IsRunning", false);
+
         }
 
         public override void Update()

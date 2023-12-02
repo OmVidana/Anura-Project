@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <WalkingSpeed>k__BackingField: 3
   <RunningSpeed>k__BackingField: 4
-  <JumpForce>k__BackingField: 8.5
+  <JumpForce>k__BackingField: 9
   <JumpDownForce>k__BackingField: -1.5
+  <MaxJumpDeceleration>k__BackingField: -10
   <GroundOffset>k__BackingField: 0.1
-  <Ground>k__BackingField:
+  <Jumpable>k__BackingField:
     serializedVersion: 2
     m_Bits: 8
   <AttackDmg>k__BackingField: 1

@@ -19,7 +19,7 @@ namespace Anura
 
         public override void OnEnter()
         {
-            // _player.playerAnimator.Play("Jump");
+            _player.playerAnimator.SetBool("IsJumping", true);
             _player.Jump();
         }
 

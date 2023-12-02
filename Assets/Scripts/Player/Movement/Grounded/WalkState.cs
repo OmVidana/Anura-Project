@@ -18,13 +18,12 @@ namespace Anura
 
         public override void OnEnter()
         {
-            // _player.playerAnimator.Play("Walk");
-            Debug.Log("Walk");
+            _player.playerAnimator.SetBool("IsWalking", true);
         }
 
         public override void OnExit()
         {
-            _player.Move(_playerData.WalkingSpeed);
+            _player.playerAnimator.SetBool("IsWalking", false);
         }
         
 
