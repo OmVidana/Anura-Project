@@ -17,9 +17,9 @@ namespace Anura
         public Rigidbody2D enemyRB;
         protected CapsuleCollider2D _bodyCollider2D;
         protected Vector2 startingPosition;
-        
-        [Header("Enemy Movement")]
-        protected bool isMovingRight = true;
+
+        [Header("Enemy Movement")] 
+        public bool isMovingRight;
         protected Vector2 direction = new Vector2(1, 0);
         [field: Range(0f, 16f)] public float walkingSpeed;
         [field: Range(0f, 20f)] public float chasingSpeed;
@@ -35,8 +35,8 @@ namespace Anura
         [field: Range(0f, 8f)] public float AggroDistance;
         
         [Header("Movement Delimiters")]
-        public int pointXA;
-        public int pointXB;
+        public float pointXA;
+        public float pointXB;
         
         public abstract void Move();
 

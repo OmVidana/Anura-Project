@@ -18,5 +18,6 @@ namespace Anura
         [field: SerializeField] public LayerMask Jumpable { get; private set; }
         
         [field: SerializeField] [field: Range(0, 99)] public int AttackDmg { get; private set; }
+        [field: SerializeField] [field: Range(0, 10)] public float AttackCooldown { get; private set; }
     }
 }

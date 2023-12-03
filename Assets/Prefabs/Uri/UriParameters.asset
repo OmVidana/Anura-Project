@@ -22,3 +22,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   <AttackDmg>k__BackingField: 1
+  <AttackCooldown>k__BackingField: 1

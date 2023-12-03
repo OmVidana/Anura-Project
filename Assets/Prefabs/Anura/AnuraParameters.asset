@@ -21,4 +21,5 @@ MonoBehaviour:
   <Jumpable>k__BackingField:
     serializedVersion: 2
     m_Bits: 8
-  <AttackDmg>k__BackingField: 5
+  <AttackDmg>k__BackingField: 2
+  <AttackCooldown>k__BackingField: 1.5

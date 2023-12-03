@@ -25,6 +25,7 @@ namespace Anura
 
         void Start()
         {
+            startingPosition = enemyRB.position;
             enemyStateMachine.ChangeState(enemyStateMachine.IdleState);
         }
 
@@ -44,6 +45,8 @@ namespace Anura
             float minPosX = Mathf.Min(pointXA, pointXB);
             float maxPosX = Mathf.Max(pointXA, pointXB);
 
+            if (enemyRB.position.x > maxPosX + 1f|| enemyRB.position.x < minPosX - 1f)
+                enemyRB.position = startingPosition;
             if (enemyStateMachine.returnCurrent() == aggroState)
             {
                 GameObject player = GameObject.FindWithTag("Player");

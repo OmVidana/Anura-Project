@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Anura
 {
-    public class HealthSystem : MonoBehaviour
+    public class ActionsStateMachine : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()
