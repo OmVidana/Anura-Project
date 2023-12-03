@@ -10,8 +10,8 @@ namespace Anura
 {
     public class PlayerManager : MonoBehaviour
     {
-        public int playersHealth;
-
+        [Range(0, 100)] public int playersHealth;
+        
         public GameObject anura;
         public GameObject uri;
         private GameObject _activePlayer;

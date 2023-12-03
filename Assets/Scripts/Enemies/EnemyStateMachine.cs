@@ -4,18 +4,16 @@ using UnityEngine;
 
 namespace Anura
 {
-    public class EnemyStateMachine : MonoBehaviour
+    public class EnemyStateMachine : StateMachine
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+        public Enemy Enemy { get; }
+        public State IdleState { get; set; }
+        public State PassiveState { get; set; }
+        public State AggroState { get; set; }
 
-        // Update is called once per frame
-        void Update()
+        public EnemyStateMachine(Enemy enemy)
         {
-        
+            Enemy = enemy;
         }
     }
 }
