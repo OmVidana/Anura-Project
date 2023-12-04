@@ -11282,7 +11282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e3908257511a0449f4835e307e1fe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerManager: {fileID: 0}
+  _playerManager: {fileID: 1262153646}
   spriteRenderer: {fileID: 903725635}
   spriteArray:
   - {fileID: 21300000, guid: af6fccff52f10894280450ab257cfd28, type: 3}
@@ -15261,6 +15261,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 51, y: 2, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 12
+      m_TileSpriteIndex: 12
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 6
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 73, y: 2, z: 0}
     second:
       serializedVersion: 2
@@ -15487,7 +15497,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 458551f563fe50149a48d9c7b4dcf99d, type: 2}
   - m_RefCount: 45
     m_Data: {fileID: 11400000, guid: 07ed8b0667fd1ab4db9786486b3bf58d, type: 2}
-  - m_RefCount: 133
+  - m_RefCount: 134
     m_Data: {fileID: 11400000, guid: b53c5e7c745da404196aa7906489ad4e, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
@@ -15514,10 +15524,10 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 23f3deb31f933f64eab00731bcbb7510, type: 3}
   - m_RefCount: 45
     m_Data: {fileID: 21300000, guid: a266ac2577393ef4581fd78c6b976daf, type: 3}
-  - m_RefCount: 133
+  - m_RefCount: 134
     m_Data: {fileID: 21300000, guid: 904c3264bdd7fac4088a241c5600be95, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 196
+  - m_RefCount: 197
     m_Data:
       e00: 1
       e01: 0
@@ -15548,7 +15558,7 @@ Tilemap:
     m_Data: {r: 4.0831e-41, g: 4.0831e-41, b: 4.0831e-41, a: 4.0831e-41}
   - m_RefCount: 0
     m_Data: {r: 4.0831e-41, g: 4.0831e-41, b: 4.0831e-41, a: 4.0831e-41}
-  - m_RefCount: 196
+  - m_RefCount: 197
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
