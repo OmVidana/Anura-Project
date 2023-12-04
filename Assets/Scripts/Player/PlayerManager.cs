@@ -39,7 +39,7 @@ namespace Anura
 
         private void Update()
         {
-            if (_input.actions["Switch"].triggered && !onCooldownSwitch && activePlayer.GetComponent<Player>().IsGrounded() && !activePlayer.GetComponent<Player>().attackOnCooldown && !activePlayer.GetComponent<Player>().hitOnCooldown)
+            if (_input.actions["Switch"].triggered && !onCooldownSwitch && activePlayer.GetComponent<Player>().IsGrounded())
             {
                 _disablePlayer.transform.position = activePlayer.transform.position + new Vector3(0, 0.5f, 0);
                 _disablePlayer.GetComponent<Player>().spriteRenderer.flipX = activePlayer.GetComponent<Player>().spriteRenderer.flipX;

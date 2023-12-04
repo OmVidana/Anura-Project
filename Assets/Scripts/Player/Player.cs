@@ -106,7 +106,6 @@ namespace Anura
         
         IEnumerator Attacking()
         {
-            //Animation not properly working
             playerAnimator.SetTrigger("Attacking");
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(collider2D.bounds.center + new Vector3(playerData.AttackRange * _playerDirection, 0, 0), playerData.AttackRadius, enemyLayer);
 
