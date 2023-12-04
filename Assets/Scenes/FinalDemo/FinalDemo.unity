@@ -1368,6 +1368,10 @@ PrefabInstance:
       propertyPath: _interactionRadius
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7470309381241812454, guid: 673d52f972045a146a140ec46fd227b4, type: 3}
+      propertyPath: _interactableMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 8011016090361429257, guid: 673d52f972045a146a140ec46fd227b4, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -9786,6 +9790,9 @@ MonoBehaviour:
   uri: {fileID: 1953160616}
   _input: {fileID: 1262153647}
   vc: {fileID: 2022647492}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &1262153647
 MonoBehaviour:
   m_ObjectHideFlags: 0

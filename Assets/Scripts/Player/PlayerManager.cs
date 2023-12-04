@@ -15,17 +15,24 @@ namespace Anura
         
         public GameObject anura;
         public GameObject uri;
+        private Player _active;
+        private Player _disable;
         private GameObject _activePlayer;
         private GameObject _disablePlayer;
         private bool _onCooldownSwitch;
         public PlayerInput _input;
         public CinemachineVirtualCamera vc;
 
+        public LayerMask enemyLayer;
+        private bool _attackOnCooldown;
+        
         private void Awake()
         {
             _input = GetComponent<PlayerInput>();
             _activePlayer = anura;
+            _active = _activePlayer.GetComponent<Player>();
             _disablePlayer = uri;
+            _disable = _disablePlayer.GetComponent<Player>();
         }
 
         void Start()
@@ -39,10 +46,10 @@ namespace Anura
             if (_input.actions["Switch"].triggered && !_onCooldownSwitch && _activePlayer.GetComponent<Player>().IsGrounded())
             {
                 _disablePlayer.transform.position = _activePlayer.transform.position + new Vector3(0, 0.5f,0);
-                _disablePlayer.GetComponent<SpriteRenderer>().flipX =
-                    _activePlayer.GetComponent<SpriteRenderer>().flipX;
+                _disable.spriteRenderer.flipX = _active.spriteRenderer.flipX;
                 StartCoroutine(SwitchActivePlayer());
             }
+            
         }
 
         IEnumerator SwitchActivePlayer()
@@ -52,19 +59,10 @@ namespace Anura
             yield return new WaitForSeconds(0.5f);
             _disablePlayer.SetActive(true);
             vc.Follow = _disablePlayer.transform;
+            (_active, _disable) = (_disable, _active);
             (_activePlayer, _disablePlayer) = (_disablePlayer, _activePlayer);
             yield return new WaitForSeconds(1.0f);
             _onCooldownSwitch = false;
-        }
-
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            // Recibe 1 de daño
-        }
-
-        private void OnCollisionStay2D(Collision2D other)
-        {
-            //Recibe 1 de daño cada x segundos delimitados
         }
     }
 }

@@ -251,14 +251,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58dc88fff195167439f6b2917f17d026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
   playerAnimator: {fileID: 415896649776995659}
   playerRB: {fileID: 1962316188476748025}
-  _collider2D: {fileID: 3018640106450504142}
+  collider2D: {fileID: 3018640106450504142}
   input: {fileID: 3210018483478105053}
   playerData: {fileID: 11400000, guid: 8578b5304bb1f1044a103aa012989c59, type: 2}
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
 --- !u!114 &5338438783728414726
 MonoBehaviour:
   m_ObjectHideFlags: 0

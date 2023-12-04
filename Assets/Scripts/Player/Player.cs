@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,23 +10,23 @@ namespace Anura
     public class Player : MonoBehaviour
     {
         private MovementStateMachine movementStateMachine;
-        private SpriteRenderer _spriteRenderer;
+        public SpriteRenderer spriteRenderer;
         public Animator playerAnimator;
         public Rigidbody2D playerRB;
-        public CapsuleCollider2D _collider2D;
+        public CapsuleCollider2D collider2D;
         public PlayerInput input;
         public PlayerParameters playerData;
+
         public LayerMask enemyLayer;
-        
         private bool _attackOnCooldown;
-        
+        private int _playerDirection = 1;
         private void Awake()
         {
             movementStateMachine = new MovementStateMachine(this);
-            _spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
             playerAnimator = GetComponent<Animator>();
             playerRB = GetComponent<Rigidbody2D>();
-            _collider2D = GetComponent<CapsuleCollider2D>();
+            collider2D = GetComponent<CapsuleCollider2D>();
             input = GetComponent<PlayerInput>();
         }
 
@@ -38,13 +39,13 @@ namespace Anura
         {
             movementStateMachine.Update();
             playerAnimator.SetBool("IsGrounded", IsGrounded());
-            Attack();
         }
 
         private void FixedUpdate()
         {
-            movementStateMachine.PhysicsUpdate();            
+            movementStateMachine.PhysicsUpdate();    
             AfterJump();
+            Attack();
         }
         
         public Vector2 MovementInput()
@@ -62,14 +63,17 @@ namespace Anura
 
         public void PlayerDirection()
         {
-            if (!_spriteRenderer.flipX && MovementInput().x < 0f || _spriteRenderer.flipX && MovementInput().x > 0f)
-                _spriteRenderer.flipX = !_spriteRenderer.flipX;
+            if (!spriteRenderer.flipX && MovementInput().x < 0f || spriteRenderer.flipX && MovementInput().x > 0f)
+            {
+                spriteRenderer.flipX = !spriteRenderer.flipX;
+                _playerDirection *= -1;
+            }
         }
 
         public bool IsGrounded()
         {
-            Vector2 boxOrigin = new Vector2(_collider2D.transform.position.x, _collider2D.bounds.min.y);
-            Vector2 boxSize = new Vector2(_collider2D.size.x, playerData.GroundOffset);
+            Vector2 boxOrigin = new Vector2(collider2D.transform.position.x, collider2D.bounds.min.y);
+            Vector2 boxSize = new Vector2(collider2D.size.x, playerData.GroundOffset);
             return Physics2D.BoxCast(boxOrigin, boxSize, 0, Vector2.down, playerData.GroundOffset, playerData.Jumpable) ||
                    Physics2D.BoxCast(boxOrigin, boxSize, 0, Vector2.down, playerData.GroundOffset, playerData.Interactable);
         }
@@ -86,29 +90,36 @@ namespace Anura
                 playerRB.AddForce(new Vector2(0, playerData.JumpDownForce), ForceMode2D.Impulse);
             }
         }
-
+        
         private void Attack()
         {
-            //Create a collider infront of the player and play attackAnimation
             if (input.actions["Attack"].triggered && !_attackOnCooldown)
             {
-                _attackOnCooldown = true;
-                StartCoroutine(AttackCoroutine(playerData.AttackCooldown));
+                Collider2D _attackCollider = Physics2D.OverlapCircle(collider2D.bounds.center + new Vector3(playerData.AttackRange * _playerDirection, 0, 0), playerData.AttackRadius, enemyLayer);
+                Debug.Log(_attackCollider);
+                StartCoroutine(Attacking());
             }
         }
-
-        IEnumerator AttackCoroutine(float cooldown)
+        
+        IEnumerator Attacking()
         {
-            playerAnimator.SetTrigger("Attacking");
-            Collider2D _attackCollider = Physics2D.OverlapCircle(_collider2D.bounds.center + new Vector3(playerData.AttackRange * MovementInput().x, 0, 0), playerData.AttackRadius, enemyLayer);
-            Debug.Log(Physics2D.OverlapCircle(_collider2D.bounds.center + new Vector3(playerData.AttackRange, 0, 0), playerData.AttackRadius, enemyLayer));
-            yield return new WaitForSeconds(cooldown);
+            yield return new WaitForSeconds(playerData.AttackCooldown);
             _attackOnCooldown = false;
         }
 
-        private void OnDrawGizmosSelected()
+        private void OnCollisionEnter2D(Collision2D other)
         {
-            Gizmos.DrawWireSphere(_collider2D.bounds.center + new Vector3(playerData.AttackRange * MovementInput().x, 0, 0), playerData.AttackRadius);
+            // Recibe 1 de daño
+        }
+
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            //Recibe 1 de daño cada x segundos delimitados
+        }
+        
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(collider2D.bounds.center + new Vector3(playerData.AttackRange * _playerDirection, 0, 0), playerData.AttackRadius);
         }
     }
 }
