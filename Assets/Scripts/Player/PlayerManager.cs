@@ -21,7 +21,7 @@ namespace Anura
         protected internal bool onCooldownSwitch;
         public PlayerInput _input;
         public CinemachineVirtualCamera vc;
-        [SerializeField] private GameObject GameOver;
+        [SerializeField] private GameObject _gameOver;
 
         private void Awake()
         {
@@ -64,7 +64,7 @@ namespace Anura
             activePlayer.SetActive(false);
             GameObject.Find("DamageIndicator").SetActive(false);
             // Load Scene
-            GameOver.SetActive(true);
+            _gameOver.SetActive(true);
         }
     }
 }
