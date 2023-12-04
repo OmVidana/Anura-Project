@@ -12,9 +12,12 @@ namespace Anura
         private SpriteRenderer _spriteRenderer;
         public Animator playerAnimator;
         public Rigidbody2D playerRB;
-        private CapsuleCollider2D _collider2D;
+        public CapsuleCollider2D _collider2D;
         public PlayerInput input;
         public PlayerParameters playerData;
+        public LayerMask enemyLayer;
+        
+        private bool _attackOnCooldown;
         
         private void Awake()
         {
@@ -35,6 +38,7 @@ namespace Anura
         {
             movementStateMachine.Update();
             playerAnimator.SetBool("IsGrounded", IsGrounded());
+            Attack();
         }
 
         private void FixedUpdate()
@@ -81,6 +85,30 @@ namespace Anura
             { 
                 playerRB.AddForce(new Vector2(0, playerData.JumpDownForce), ForceMode2D.Impulse);
             }
+        }
+
+        private void Attack()
+        {
+            //Create a collider infront of the player and play attackAnimation
+            if (input.actions["Attack"].triggered && !_attackOnCooldown)
+            {
+                _attackOnCooldown = true;
+                StartCoroutine(AttackCoroutine(playerData.AttackCooldown));
+            }
+        }
+
+        IEnumerator AttackCoroutine(float cooldown)
+        {
+            playerAnimator.SetTrigger("Attacking");
+            Collider2D _attackCollider = Physics2D.OverlapCircle(_collider2D.bounds.center + new Vector3(playerData.AttackRange * MovementInput().x, 0, 0), playerData.AttackRadius, enemyLayer);
+            Debug.Log(Physics2D.OverlapCircle(_collider2D.bounds.center + new Vector3(playerData.AttackRange, 0, 0), playerData.AttackRadius, enemyLayer));
+            yield return new WaitForSeconds(cooldown);
+            _attackOnCooldown = false;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawWireSphere(_collider2D.bounds.center + new Vector3(playerData.AttackRange * MovementInput().x, 0, 0), playerData.AttackRadius);
         }
     }
 }

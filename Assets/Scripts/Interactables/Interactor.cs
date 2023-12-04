@@ -26,11 +26,5 @@ namespace Anura
                     interactable.Interact(this);
             }
         }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(_interactionPoint.bounds.center, _interactionRadius);
-        }
     }
 }

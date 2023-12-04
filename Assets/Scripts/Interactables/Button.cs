@@ -15,7 +15,7 @@ namespace Anura
         [NonSerialized] public bool isTriggered;
         public void Interact(Interactor interactor)
         {
-            //Display a Canvas Saying "Press Me"
+            //Display a Text Saying "Press Me"
         }
 
         private void OnCollisionEnter2D(Collision2D other)

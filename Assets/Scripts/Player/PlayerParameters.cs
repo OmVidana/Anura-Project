@@ -19,6 +19,8 @@ namespace Anura
         [field: SerializeField] public LayerMask Interactable { get; private set; }
         
         [field: SerializeField] [field: Range(0, 99)] public int AttackDmg { get; private set; }
-        [field: SerializeField] [field: Range(0, 10)] public float AttackCooldown { get; private set; }
+        [field: SerializeField] [field: Range(0f, 10f)] public float AttackRange { get; private set; }
+        [field: SerializeField] [field: Range(0f, 5f)] public float AttackRadius { get; private set; }
+        [field: SerializeField] [field: Range(0f, 10f)] public float AttackCooldown { get; private set; }
     }
 }

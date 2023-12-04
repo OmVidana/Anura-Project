@@ -9,6 +9,7 @@ namespace Anura
     public class Lever : MonoBehaviour, IInteractable
     {
         [SerializeField] private Animator _leverAnimator;
+        [SerializeField] private Animator _playerAnimator;
         public PlayerInput _playerInput;
         [SerializeField] private string _prompt;
         public string InteractionPrompt => _prompt;
@@ -16,10 +17,11 @@ namespace Anura
         [NonSerialized] public bool isTriggered;
         public void Interact(Interactor interactor)
         {
-            //Display a Canvas Saying "Activate Me"
+            //Display a Text Saying "Activate Me"
             if (_playerInput.actions["Interact"].triggered && GameObject.Find("Anura") != null)
             {
                 isTriggered = !isTriggered;
+                _playerAnimator.SetTrigger("Interacting");
                 _leverAnimator.SetBool("IsActive", isTriggered);
             }
         }

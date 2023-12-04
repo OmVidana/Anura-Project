@@ -13,10 +13,11 @@ namespace Anura
         public string InteractionPrompt => _prompt;
         public void Interact(Interactor interactor)
         {
-            // if (_playerInput.actions["Interact"].triggered && GameObject.Find("Uri") != null)
-            //     Debug.Log(_tubesCollider.isTrigger);
-            // if(GameObject.Find("Uri") == null)
-            //     _tubesCollider.isTrigger = false;
+            //Display a Text saying go inside Anura
+            if (GameObject.Find("Uri") != null)
+                _tubesCollider.isTrigger = true;
+            else
+                _tubesCollider.isTrigger = false;
         }
     }
 }

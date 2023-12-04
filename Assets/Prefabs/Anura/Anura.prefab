@@ -265,8 +265,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 6931742106035966338}
   playerRB: {fileID: 3352190508812929337}
+  _collider2D: {fileID: 2490325773239801738}
   input: {fileID: 3785397819250297387}
   playerData: {fileID: 11400000, guid: e80bdd253b8f6344b932a82b13712316, type: 2}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &7470309381241812454
 MonoBehaviour:
   m_ObjectHideFlags: 0

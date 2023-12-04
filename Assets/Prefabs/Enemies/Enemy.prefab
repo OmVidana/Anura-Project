@@ -77,7 +77,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7381385432714573391}
   - component: {fileID: 2921632440735048816}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: HitPointA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,9 +147,9 @@ GameObject:
   - component: {fileID: 4429558513907835644}
   - component: {fileID: 3389414964334785079}
   - component: {fileID: 8433122210705471584}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -328,7 +328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8501012636399728408}
   - component: {fileID: 2022511159679465095}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: HitPointB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
