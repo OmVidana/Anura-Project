@@ -16,16 +16,13 @@ MonoBehaviour:
   <RunningSpeed>k__BackingField: 4
   <JumpForce>k__BackingField: 8
   <JumpDownForce>k__BackingField: -1.5
-  <MaxJumpDeceleration>k__BackingField: -10
+  <MaxJumpDeceleration>k__BackingField: -9.5
   <GroundOffset>k__BackingField: 0.1
-  <Jumpable>k__BackingField:
+  <JumpableLayers>k__BackingField:
     serializedVersion: 2
-    m_Bits: 8
-  <Interactable>k__BackingField:
-    serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 776
   <AttackDmg>k__BackingField: 1
-  <AttackRange>k__BackingField: 2.5
-  <AttackRadius>k__BackingField: 0.75
-  <AttackCooldown>k__BackingField: 0.75
-  <TakingDmgCooldown>k__BackingField: 3
+  <AttackRange>k__BackingField: 1.5
+  <AttackRadius>k__BackingField: 1.5
+  <AttackCooldown>k__BackingField: 0.5
+  <TakingDmgCooldown>k__BackingField: 2

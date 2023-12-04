@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,16 +7,23 @@ namespace Anura
 {
     public class HealingItem : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        public int healAmount;
+        public float respawnTime;
+        public HealingItemsManager manager;
+        private void OnTriggerEnter2D(Collider2D other)
         {
-        
-        }
+            if (other.gameObject.CompareTag("Player"))
+            {
+                PlayerManager playerManager = other.gameObject.GetComponent<Player>().playerManager;
+                if (playerManager.currentHealth < playerManager.playersHealth)
+                {
+                    playerManager.currentHealth = Math.Min(playerManager.currentHealth + healAmount,
+                        playerManager.playersHealth);
 
-        // Update is called once per frame
-        void Update()
-        {
-        
+                    gameObject.SetActive(false);
+                    manager.StartCoroutine(manager.RespawnHealing(respawnTime, gameObject));
+                }
+            }
         }
     }
 }

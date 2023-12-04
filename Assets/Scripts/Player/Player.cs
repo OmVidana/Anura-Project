@@ -20,8 +20,8 @@ namespace Anura
         
         public LayerMask enemyLayer;
         [SerializeField] private Transform _damageIndicator;
-        private bool _attackOnCooldown;
-        private bool _hitOnCooldown;
+        [NonSerialized] public bool attackOnCooldown;
+        [NonSerialized] public bool hitOnCooldown;
         private int _playerDirection = 1;
         private void Awake()
         {
@@ -79,8 +79,7 @@ namespace Anura
         {
             Vector2 boxOrigin = new Vector2(collider2D.transform.position.x, collider2D.bounds.min.y);
             Vector2 boxSize = new Vector2(collider2D.size.x, playerData.GroundOffset);
-            return Physics2D.BoxCast(boxOrigin, boxSize, 0, Vector2.down, playerData.GroundOffset, playerData.Jumpable) ||
-                   Physics2D.BoxCast(boxOrigin, boxSize, 0, Vector2.down, playerData.GroundOffset, playerData.Interactable);
+            return Physics2D.BoxCast(boxOrigin, boxSize, 0, Vector2.down, playerData.GroundOffset, playerData.JumpableLayers);
         }
 
         public void Jump()
@@ -98,9 +97,9 @@ namespace Anura
         
         private void Attack()
         {
-            if (input.actions["Attack"].triggered && !_attackOnCooldown)
+            if (input.actions["Attack"].triggered && !attackOnCooldown)
             {
-                _attackOnCooldown = true;
+                attackOnCooldown = true;
                 StartCoroutine(Attacking());
             }
         }
@@ -117,52 +116,60 @@ namespace Anura
             }
 
             yield return new WaitForSeconds(playerData.AttackCooldown);
-            _attackOnCooldown = false;
+            attackOnCooldown = false;
         }
 
         private void DamageIndicator()
         {
-            _damageIndicator.position = collider2D.bounds.center + new Vector3(playerData.AttackRange * _playerDirection, 0, 0);
+            _damageIndicator.position = collider2D.bounds.center + new Vector3((playerData.AttackRange + playerData.AttackRadius) * _playerDirection, 0, 0);
         }
         
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if ((!_hitOnCooldown && other.gameObject.tag.Equals("Enemy")) ||
-                (!_hitOnCooldown && other.gameObject.tag.Equals("Hazard")))
+            if (!hitOnCooldown && other.gameObject.CompareTag("Enemy"))
             {
                 playerAnimator.SetTrigger("Hitted");
                 playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>().attackDmg;
                 if (playerManager.currentHealth <= 0)
                     playerManager.Death();
-                _hitOnCooldown = true;
+                hitOnCooldown = true;
                 StartCoroutine(WaitForHit());
             }
+            if  (!hitOnCooldown && other.gameObject.layer.Equals(7))
+            {
+                playerAnimator.SetTrigger("Hitted");
+                playerManager.currentHealth -= 1;
+                if (playerManager.currentHealth <= 0)
+                    playerManager.Death();
+                hitOnCooldown = true;
+                StartCoroutine(WaitForHit());
+            }  
         }
 
         private void OnCollisionStay2D(Collision2D other)
         {
-            if ((!_hitOnCooldown && other.gameObject.tag.Equals("Enemy")) ||
-                (!_hitOnCooldown && other.gameObject.tag.Equals("Hazard")))
+            if ((!hitOnCooldown && other.gameObject.CompareTag("Enemy")) ||
+                (!hitOnCooldown && other.gameObject.layer.Equals(7)))
             {
                 playerAnimator.SetTrigger("Hitted");
                 playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>().attackDmg;
                 if (playerManager.currentHealth <= 0)
                     playerManager.Death();
-                _hitOnCooldown = true;
+                hitOnCooldown = true;
                 StartCoroutine(WaitForHit());
             }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if ((!_hitOnCooldown && other.gameObject.tag.Equals("Enemy")) ||
-                (!_hitOnCooldown && other.gameObject.tag.Equals("Hazard")))
+            if ((!hitOnCooldown && other.gameObject.CompareTag("Enemy")) ||
+                (!hitOnCooldown && other.gameObject.layer.Equals(7)))
             {
                 playerAnimator.SetTrigger("Hitted");
-                playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>().attackDmg;
+                playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>() == null ? 1 : other.gameObject.GetComponent<Enemy>().attackDmg;
                 if (playerManager.currentHealth <= 0)
                     playerManager.Death();
-                _hitOnCooldown = true;
+                hitOnCooldown = true;
                 StartCoroutine(WaitForHit());
 
             }
@@ -170,14 +177,14 @@ namespace Anura
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if ((!_hitOnCooldown && other.gameObject.tag.Equals("Enemy")) ||
-                (!_hitOnCooldown && other.gameObject.tag.Equals("Hazard")))
+            if ((!hitOnCooldown && other.gameObject.CompareTag("Enemy")) ||
+                (!hitOnCooldown && other.gameObject.layer.Equals(7)))
             {
                 playerAnimator.SetTrigger("Hitted");
-                playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>().attackDmg;
+                playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>() == null ? 1 : other.gameObject.GetComponent<Enemy>().attackDmg;
                 if (playerManager.currentHealth <= 0)
                     playerManager.Death();
-                _hitOnCooldown = true;
+                hitOnCooldown = true;
                 StartCoroutine(WaitForHit());
             }
         }
@@ -185,7 +192,12 @@ namespace Anura
         IEnumerator WaitForHit()
         {
             yield return new WaitForSeconds(playerData.TakingDmgCooldown);
-            _hitOnCooldown = false;
+            hitOnCooldown = false;
         }
+        
+        // private void OnDrawGizmos()
+        // {
+        //     Gizmos.DrawWireSphere(collider2D.bounds.center + new Vector3(playerData.AttackRange * _playerDirection, 0, 0), playerData.AttackRadius);
+        // }
     }
 }

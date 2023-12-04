@@ -41,13 +41,12 @@ namespace Anura
 
         private void Update()
         {
-            if (_input.actions["Switch"].triggered && !_onCooldownSwitch && _activePlayer.GetComponent<Player>().IsGrounded())
+            if (_input.actions["Switch"].triggered && !_onCooldownSwitch && _activePlayer.GetComponent<Player>().IsGrounded() && !_activePlayer.GetComponent<Player>().attackOnCooldown && !_activePlayer.GetComponent<Player>().hitOnCooldown)
             {
                 _disablePlayer.transform.position = _activePlayer.transform.position + new Vector3(0, 0.5f,0);
                 _disablePlayer.GetComponent<Player>().spriteRenderer.flipX = _activePlayer.GetComponent<Player>().spriteRenderer.flipX;
                 StartCoroutine(SwitchActivePlayer());
             }
-            Debug.Log(currentHealth);
         }
 
         IEnumerator SwitchActivePlayer()
@@ -65,6 +64,7 @@ namespace Anura
         public void Death()
         {
             _activePlayer.SetActive(false);
+            GameObject.Find("DamageIndicator").SetActive(false);
             // Load Scene
         }
     }
