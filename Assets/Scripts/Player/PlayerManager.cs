@@ -13,59 +13,58 @@ namespace Anura
     {
         [Range(0, 100)] public int playersHealth;
         public int currentHealth;
-        
+
         public GameObject anura;
         public GameObject uri;
-        private GameObject _activePlayer;
+        protected internal GameObject activePlayer;
         private GameObject _disablePlayer;
-        private bool _onCooldownSwitch;
+        protected internal bool onCooldownSwitch;
         public PlayerInput _input;
         public CinemachineVirtualCamera vc;
+        [SerializeField] private GameObject GameOver;
 
-        public LayerMask enemyLayer;
-        private bool _attackOnCooldown;
-        
         private void Awake()
         {
             _input = GetComponent<PlayerInput>();
-            _activePlayer = anura;
+            activePlayer = anura;
             _disablePlayer = uri;
             currentHealth = playersHealth;
         }
 
         void Start()
         {
-            _activePlayer.SetActive(true);
+            activePlayer.SetActive(true);
             _disablePlayer.SetActive(false);
         }
 
         private void Update()
         {
-            if (_input.actions["Switch"].triggered && !_onCooldownSwitch && _activePlayer.GetComponent<Player>().IsGrounded() && !_activePlayer.GetComponent<Player>().attackOnCooldown && !_activePlayer.GetComponent<Player>().hitOnCooldown)
+            if (_input.actions["Switch"].triggered && !onCooldownSwitch && activePlayer.GetComponent<Player>().IsGrounded() && !activePlayer.GetComponent<Player>().attackOnCooldown && !activePlayer.GetComponent<Player>().hitOnCooldown)
             {
-                _disablePlayer.transform.position = _activePlayer.transform.position + new Vector3(0, 0.5f,0);
-                _disablePlayer.GetComponent<Player>().spriteRenderer.flipX = _activePlayer.GetComponent<Player>().spriteRenderer.flipX;
+                _disablePlayer.transform.position = activePlayer.transform.position + new Vector3(0, 0.5f, 0);
+                _disablePlayer.GetComponent<Player>().spriteRenderer.flipX = activePlayer.GetComponent<Player>().spriteRenderer.flipX;
                 StartCoroutine(SwitchActivePlayer());
             }
         }
 
         IEnumerator SwitchActivePlayer()
         {
-            _onCooldownSwitch = true;
-            _activePlayer.SetActive(false);
+            onCooldownSwitch = true;
+            activePlayer.SetActive(false);
             yield return new WaitForSeconds(0.5f);
             _disablePlayer.SetActive(true);
             vc.Follow = _disablePlayer.transform;
-            (_activePlayer, _disablePlayer) = (_disablePlayer, _activePlayer);
+            (activePlayer, _disablePlayer) = (_disablePlayer, activePlayer);
             yield return new WaitForSeconds(1.0f);
-            _onCooldownSwitch = false;
+            onCooldownSwitch = false;
         }
 
         public void Death()
         {
-            _activePlayer.SetActive(false);
+            activePlayer.SetActive(false);
             GameObject.Find("DamageIndicator").SetActive(false);
             // Load Scene
+            GameOver.SetActive(true);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Versioning;
+using Anura;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -8,49 +9,43 @@ using UnityEngine.UI;
 
 public class Vida : MonoBehaviour
 {
-    [SerializeField] private GameObject GameOver;
+    [SerializeField] private PlayerManager _playerManager;
     public SpriteRenderer spriteRenderer;
     public Sprite[] spriteArray;
     public Image Health;
-    public int Life = 4;
+    private int _currentHealth;
     // Start is called before the first frame update
-    public void Start()
+    private void Start()
     {
-        Time.timeScale = 1f;
+        _currentHealth = _playerManager.currentHealth;
     }
 
 
     // Update is called once per frame
-    public void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown("q"))
+        if (_currentHealth != _playerManager.currentHealth)
         {
-            Life--;
-            Health.sprite = spriteArray[0];
+            _currentHealth = _playerManager.currentHealth;
+            int caseHealth = (int)Mathf.Floor(_currentHealth * 0.5f);
+            switch (caseHealth)
+            {
+                case 4:
+                    Health.sprite = spriteArray[0];
+                    break;
+                case 3:
+                    Health.sprite = spriteArray[1];
+                    break;
+                case 2:
+                    Health.sprite = spriteArray[2];
+                    break;
+                case 1:
+                    Health.sprite = spriteArray[3];
+                    break;
+                case 0:
+                    Health.sprite = spriteArray[4];
+                    break;
+            }
         }
-        switch (Life)
-        {
-            case 4:
-                Health.sprite = spriteArray[0];
-                break;
-            case 3:
-                Health.sprite = spriteArray[1];
-                break;
-            case 2:
-                Health.sprite = spriteArray[2];
-                break;
-            case 1:
-                Health.sprite = spriteArray[3];
-                break;
-            case 0:
-                Health.sprite = spriteArray[4];
-                Time.timeScale = 0f;
-                GameOver.SetActive(true);
-                break;
-            default:
-                Life = 4;
-                break;
-        }
-
     }
 }
