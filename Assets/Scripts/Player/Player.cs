@@ -100,7 +100,7 @@ namespace Anura
             if (input.actions["Attack"].triggered && !attackOnCooldown)
             {
                 attackOnCooldown = true;
-                StartCoroutine(Attacking());
+                playerManager.StartCoroutine(Attacking());
             }
         }
         
@@ -127,21 +127,19 @@ namespace Anura
         {
             if (!hitOnCooldown && other.gameObject.CompareTag("Enemy"))
             {
-                playerAnimator.SetTrigger("Hitted");
                 playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>().attackDmg;
                 if (playerManager.currentHealth <= 0)
                     playerManager.Death();
                 hitOnCooldown = true;
-                StartCoroutine(WaitForHit());
+                playerManager.StartCoroutine(WaitForHit());
             }
             if  (!hitOnCooldown && other.gameObject.layer.Equals(7))
-            {
-                playerAnimator.SetTrigger("Hitted");
+            {   
                 playerManager.currentHealth -= 1;
                 if (playerManager.currentHealth <= 0)
                     playerManager.Death();
                 hitOnCooldown = true;
-                StartCoroutine(WaitForHit());
+                playerManager.StartCoroutine(WaitForHit());
             }  
         }
 
@@ -150,12 +148,11 @@ namespace Anura
             if ((!hitOnCooldown && other.gameObject.CompareTag("Enemy")) ||
                 (!hitOnCooldown && other.gameObject.layer.Equals(7)))
             {
-                playerAnimator.SetTrigger("Hitted");
                 playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>().attackDmg;
                 if (playerManager.currentHealth <= 0)
                     playerManager.Death();
                 hitOnCooldown = true;
-                StartCoroutine(WaitForHit());
+                playerManager.StartCoroutine(WaitForHit());
             }
         }
 
@@ -164,13 +161,11 @@ namespace Anura
             if ((!hitOnCooldown && other.gameObject.CompareTag("Enemy")) ||
                 (!hitOnCooldown && other.gameObject.layer.Equals(7)))
             {
-                playerAnimator.SetTrigger("Hitted");
                 playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>() == null ? 1 : other.gameObject.GetComponent<Enemy>().attackDmg;
                 if (playerManager.currentHealth <= 0)
                     playerManager.Death();
                 hitOnCooldown = true;
-                StartCoroutine(WaitForHit());
-
+                playerManager.StartCoroutine(WaitForHit());
             }
         }
 
@@ -179,24 +174,19 @@ namespace Anura
             if ((!hitOnCooldown && other.gameObject.CompareTag("Enemy")) ||
                 (!hitOnCooldown && other.gameObject.layer.Equals(7)))
             {
-                playerAnimator.SetTrigger("Hitted");
                 playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>() == null ? 1 : other.gameObject.GetComponent<Enemy>().attackDmg;
                 if (playerManager.currentHealth <= 0)
                     playerManager.Death();
                 hitOnCooldown = true;
-                StartCoroutine(WaitForHit());
+                playerManager.StartCoroutine(WaitForHit());
             }
         }
 
         IEnumerator WaitForHit()
         {
+            playerAnimator.SetTrigger("Hitted");
             yield return new WaitForSeconds(playerData.TakingDmgCooldown);
             hitOnCooldown = false;
         }
-        
-        // private void OnDrawGizmos()
-        // {
-        //     Gizmos.DrawWireSphere(collider2D.bounds.center + new Vector3(playerData.AttackRange * _playerDirection, 0, 0), playerData.AttackRadius);
-        // }
     }
 }
