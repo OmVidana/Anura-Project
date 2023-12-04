@@ -18,12 +18,12 @@ namespace Anura
 
         public override void OnEnter()
         {
-            // _player.playerAnimator.Play("Walk");
+            _player.playerAnimator.SetBool("IsWalking", true);
         }
 
         public override void OnExit()
         {
-            _player.Move(_playerData.WalkingSpeed);
+            _player.playerAnimator.SetBool("IsWalking", false);
         }
         
 
@@ -42,7 +42,7 @@ namespace Anura
         {
             if (_player.MovementInput().x == 0f)
                 _stateMachine.ChangeState(_stateMachine.IdleState);
-            if (_player.input.actions["Sprint"].triggered)
+            if (_player.input.actions["Sprint"].IsPressed())
                 _stateMachine.ChangeState(_stateMachine.RunningState);
             if (_player.input.actions["Jump"].triggered && _player.IsGrounded())
                 _stateMachine.ChangeState(_stateMachine.JumpingState);

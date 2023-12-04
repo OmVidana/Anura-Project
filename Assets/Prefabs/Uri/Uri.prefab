@@ -15,13 +15,14 @@ GameObject:
   - component: {fileID: 3018640106450504142}
   - component: {fileID: 3210018483478105053}
   - component: {fileID: 1671865935875364080}
+  - component: {fileID: 5338438783728414726}
   m_Layer: 0
   m_Name: Uri
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3538419799804979439
 Transform:
   m_ObjectHideFlags: 0
@@ -32,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.25, y: -2.25, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -77,13 +78,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 626201f6e6dbc49658f449f652e9f304, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 05a2ea75709277044ac19223e602a80d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.0180664, y: 1.3229696}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -99,8 +100,8 @@ Animator:
   m_GameObject: {fileID: 1748775407513772848}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
+  m_Controller: {fileID: 9100000, guid: 1c9a2154ccbff544282dd6d26c23f6b8, type: 2}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -169,8 +170,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.9, y: 0.9}
+  m_Offset: {x: 0, y: 0.525}
+  m_Size: {x: 0.6, y: 1}
   m_Direction: 0
 --- !u!114 &3210018483478105053
 MonoBehaviour:
@@ -250,6 +251,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58dc88fff195167439f6b2917f17d026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAnimator: {fileID: 0}
-  playerRB: {fileID: 0}
+  playerAnimator: {fileID: 415896649776995659}
+  playerRB: {fileID: 1962316188476748025}
+  input: {fileID: 3210018483478105053}
   playerData: {fileID: 11400000, guid: 8578b5304bb1f1044a103aa012989c59, type: 2}
+--- !u!114 &5338438783728414726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748775407513772848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391f778179f600a408904429f3976797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactionPoint: {fileID: 3018640106450504142}
+  _interactionRadius: 2
+  _interactableMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _found: 0

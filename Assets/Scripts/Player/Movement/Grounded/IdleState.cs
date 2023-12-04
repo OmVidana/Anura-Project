@@ -19,11 +19,12 @@ namespace Anura
 
         public override void OnEnter()
         {
-            // _player.playerAnimator.Play("Idle");
+            _player.playerAnimator.SetBool("IsIdle", true);
         }
 
         public override void OnExit()
         {
+            _player.playerAnimator.SetBool("IsIdle", false);
         }
 
         public override void Update()
@@ -39,7 +40,7 @@ namespace Anura
         {
             if (_player.MovementInput().x != 0)
                 _stateMachine.ChangeState(_stateMachine.WalkingState);
-            if (_player.input.actions["Sprint"].triggered)
+            if (_player.input.actions["Sprint"].IsPressed())
                 _stateMachine.ChangeState(_stateMachine.RunningState);
             if (_player.input.actions["Jump"].triggered && _player.IsGrounded())
                 _stateMachine.ChangeState(_stateMachine.JumpingState);

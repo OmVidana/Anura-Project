@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Anura
 {
-    public partial class MovementStateMachine : StateMachine
+    public class MovementStateMachine : StateMachine
     {
         public Player Player { get; }
         public IdleState IdleState { get; }

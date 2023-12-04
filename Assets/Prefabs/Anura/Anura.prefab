@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2490325773239801738}
   - component: {fileID: 3785397819250297387}
   - component: {fileID: 7274905660668963380}
+  - component: {fileID: 7470309381241812454}
   m_Layer: 0
   m_Name: Anura
   m_TagString: Player
@@ -77,13 +78,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cb655ea93f3826a4bbff7d1f56959b9a, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 8ad8c41f8c1e2cd4798821155a9a273e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.0437499, y: 1.883348}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -99,8 +100,8 @@ Animator:
   m_GameObject: {fileID: 1653182754811474648}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
+  m_Controller: {fileID: 9100000, guid: fa9cc301d279b5841b980ea788006ea0, type: 2}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -169,8 +170,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1.2}
+  m_Offset: {x: 0, y: 0.925}
+  m_Size: {x: 0.6, y: 1.8}
   m_Direction: 0
 --- !u!114 &3785397819250297387
 MonoBehaviour:
@@ -262,6 +263,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58dc88fff195167439f6b2917f17d026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAnimator: {fileID: 0}
+  playerAnimator: {fileID: 6931742106035966338}
   playerRB: {fileID: 3352190508812929337}
+  input: {fileID: 3785397819250297387}
   playerData: {fileID: 11400000, guid: e80bdd253b8f6344b932a82b13712316, type: 2}
+--- !u!114 &7470309381241812454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653182754811474648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391f778179f600a408904429f3976797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactionPoint: {fileID: 2490325773239801738}
+  _interactionRadius: 2.5
+  _interactableMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _found: 0
