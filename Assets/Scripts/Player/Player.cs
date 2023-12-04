@@ -13,7 +13,7 @@ namespace Anura
         public Animator playerAnimator;
         public Rigidbody2D playerRB;
         private CapsuleCollider2D _collider2D;
-        [NonSerialized] public PlayerInput input;
+        public PlayerInput input;
         public PlayerParameters playerData;
         
         private void Awake()
@@ -66,7 +66,8 @@ namespace Anura
         {
             Vector2 boxOrigin = new Vector2(_collider2D.transform.position.x, _collider2D.bounds.min.y);
             Vector2 boxSize = new Vector2(_collider2D.size.x, playerData.GroundOffset);
-            return Physics2D.BoxCast(boxOrigin, boxSize, 0, Vector2.down, playerData.GroundOffset, playerData.Jumpable);
+            return Physics2D.BoxCast(boxOrigin, boxSize, 0, Vector2.down, playerData.GroundOffset, playerData.Jumpable) ||
+                   Physics2D.BoxCast(boxOrigin, boxSize, 0, Vector2.down, playerData.GroundOffset, playerData.Interactable);
         }
 
         public void Jump()

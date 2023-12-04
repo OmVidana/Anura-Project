@@ -76,5 +76,10 @@ namespace Anura
                 enemyRB.AddForce(new Vector2(0, jumpDownForce), ForceMode2D.Impulse);
             }
         }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            // Si jugador ataca, reduce a la vida el daño
+        }
     }
 }

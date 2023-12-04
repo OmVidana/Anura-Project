@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -17,7 +18,7 @@ namespace Anura
         private GameObject _activePlayer;
         private GameObject _disablePlayer;
         private bool _onCooldownSwitch;
-        private PlayerInput _input;
+        public PlayerInput _input;
         public CinemachineVirtualCamera vc;
 
         private void Awake()
@@ -54,6 +55,16 @@ namespace Anura
             (_activePlayer, _disablePlayer) = (_disablePlayer, _activePlayer);
             yield return new WaitForSeconds(1.0f);
             _onCooldownSwitch = false;
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            // Recibe 1 de daño
+        }
+
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            //Recibe 1 de daño cada x segundos delimitados
         }
     }
 }

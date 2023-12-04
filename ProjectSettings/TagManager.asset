@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Maze
-  - Hazard
   layers:
   - Default
   - TransparentFX
@@ -13,8 +12,8 @@ TagManager:
   - Jumpable
   - Water
   - UI
-  - 
-  - 
+  - Interactable
+  - Hazard
   - 
   - 
   - 
