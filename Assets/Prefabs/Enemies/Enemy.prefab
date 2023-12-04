@@ -1,72 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1466146703418141277
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7005170261510858941}
-  - component: {fileID: 2222396981126490168}
-  m_Layer: 3
-  m_Name: CrushableArea
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7005170261510858941
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466146703418141277}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.07, y: -0.036, z: 0}
-  m_LocalScale: {x: 0.94, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9114987214719692306}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &2222396981126490168
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466146703418141277}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0043551642, y: 0.76219964}
-  m_Size: {x: 1.8, y: 0.15505053}
-  m_Direction: 1
 --- !u!1 &4029295791204851213
 GameObject:
   m_ObjectHideFlags: 0
@@ -79,7 +12,7 @@ GameObject:
   - component: {fileID: 2921632440735048816}
   m_Layer: 8
   m_Name: HitPointA
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -167,7 +100,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7005170261510858941}
   - {fileID: 7381385432714573391}
   - {fileID: 8501012636399728408}
   m_Father: {fileID: 0}
@@ -283,8 +215,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03919937, y: 0.39451194}
-  m_Size: {x: 1.75, y: 0.69}
+  m_Offset: {x: -0.039199375, y: 0.34520835}
+  m_Size: {x: 1.7500002, y: 0.5913928}
   m_Direction: 1
 --- !u!114 &8433122210705471584
 MonoBehaviour:
@@ -311,11 +243,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   health: 4
+  currentHealth: 4
   attackDmg: 1
   AggroDistance: 4
   pointXA: 0
   pointXB: 0
-  crushableArea: {fileID: 2222396981126490168}
+  crushableArea: {fileID: 0}
   hitPointA: {fileID: 2921632440735048816}
   hitPointB: {fileID: 2022511159679465095}
 --- !u!1 &8780648458832545487
@@ -330,7 +263,7 @@ GameObject:
   - component: {fileID: 2022511159679465095}
   m_Layer: 8
   m_Name: HitPointB
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

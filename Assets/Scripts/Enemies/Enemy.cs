@@ -31,6 +31,7 @@ namespace Anura
         
         [Header("Combat Stats")]
         [field: Range(0, 100)] public int health;
+        [field: Range(0, 100)] public int currentHealth;
         [field: Range(0, 100)] public int attackDmg;
         [field: Range(0f, 8f)] public float AggroDistance;
         
@@ -77,9 +78,16 @@ namespace Anura
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        public void TakeDamage(int atkDmg)
         {
-            // Si jugador ataca, reduce a la vida el daño
+            currentHealth -= atkDmg;
+            if (currentHealth <= 0)
+                Death();
+        }
+        
+        public void Death()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

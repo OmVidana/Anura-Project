@@ -21,6 +21,7 @@ namespace Anura
             enemyAnimator = GetComponent<Animator>();
             enemyRB = GetComponent<Rigidbody2D>();
             _bodyCollider2D = GetComponent<CapsuleCollider2D>();
+            currentHealth = health;
         }
 
         void Start()
@@ -80,15 +81,6 @@ namespace Anura
 
                 enemyRB.velocity = direction * walkingSpeed;
             }
-        }
-        
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            // Hay 3 Trigger, 2 de daño y 1 de recibir daño
-        }
-        private void OnTriggerStay2D(Collider2D other)
-        {
-            //Si jugador sigue dentro de alguno de los dos triggers de daño después de 2 segundos, toma más daño
         }
     }
 }

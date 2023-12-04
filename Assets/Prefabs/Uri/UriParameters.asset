@@ -28,3 +28,4 @@ MonoBehaviour:
   <AttackRange>k__BackingField: 2.5
   <AttackRadius>k__BackingField: 0.75
   <AttackCooldown>k__BackingField: 0.75
+  <TakingDmgCooldown>k__BackingField: 3

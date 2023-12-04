@@ -25,6 +25,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   <AttackDmg>k__BackingField: 2
-  <AttackRange>k__BackingField: 0.5
+  <AttackRange>k__BackingField: 0.75
   <AttackRadius>k__BackingField: 1
   <AttackCooldown>k__BackingField: 1
+  <TakingDmgCooldown>k__BackingField: 3

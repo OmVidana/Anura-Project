@@ -16,9 +16,12 @@ namespace Anura
         public CapsuleCollider2D collider2D;
         public PlayerInput input;
         public PlayerParameters playerData;
-
+        public PlayerManager playerManager;
+        
         public LayerMask enemyLayer;
+        [SerializeField] private Transform _damageIndicator;
         private bool _attackOnCooldown;
+        private bool _hitOnCooldown;
         private int _playerDirection = 1;
         private void Awake()
         {
@@ -39,6 +42,11 @@ namespace Anura
         {
             movementStateMachine.Update();
             playerAnimator.SetBool("IsGrounded", IsGrounded());
+            if (spriteRenderer.flipX)
+                _playerDirection = -1;
+            else
+                _playerDirection = 1;
+            DamageIndicator();
         }
 
         private void FixedUpdate()
@@ -64,10 +72,7 @@ namespace Anura
         public void PlayerDirection()
         {
             if (!spriteRenderer.flipX && MovementInput().x < 0f || spriteRenderer.flipX && MovementInput().x > 0f)
-            {
                 spriteRenderer.flipX = !spriteRenderer.flipX;
-                _playerDirection *= -1;
-            }
         }
 
         public bool IsGrounded()
@@ -95,31 +100,92 @@ namespace Anura
         {
             if (input.actions["Attack"].triggered && !_attackOnCooldown)
             {
-                Collider2D _attackCollider = Physics2D.OverlapCircle(collider2D.bounds.center + new Vector3(playerData.AttackRange * _playerDirection, 0, 0), playerData.AttackRadius, enemyLayer);
-                Debug.Log(_attackCollider);
+                _attackOnCooldown = true;
                 StartCoroutine(Attacking());
             }
         }
         
         IEnumerator Attacking()
         {
+            //Animation not properly working
+            playerAnimator.SetTrigger("Attacking");
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(collider2D.bounds.center + new Vector3(playerData.AttackRange * _playerDirection, 0, 0), playerData.AttackRadius, enemyLayer);
+
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                enemy.GetComponent<Enemy>().TakeDamage(playerData.AttackDmg);
+            }
+
             yield return new WaitForSeconds(playerData.AttackCooldown);
             _attackOnCooldown = false;
         }
 
+        private void DamageIndicator()
+        {
+            _damageIndicator.position = collider2D.bounds.center + new Vector3(playerData.AttackRange * _playerDirection, 0, 0);
+        }
+        
         private void OnCollisionEnter2D(Collision2D other)
         {
-            // Recibe 1 de daño
+            if ((!_hitOnCooldown && other.gameObject.tag.Equals("Enemy")) ||
+                (!_hitOnCooldown && other.gameObject.tag.Equals("Hazard")))
+            {
+                playerAnimator.SetTrigger("Hitted");
+                playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>().attackDmg;
+                if (playerManager.currentHealth <= 0)
+                    playerManager.Death();
+                _hitOnCooldown = true;
+                StartCoroutine(WaitForHit());
+            }
         }
 
         private void OnCollisionStay2D(Collision2D other)
         {
-            //Recibe 1 de daño cada x segundos delimitados
+            if ((!_hitOnCooldown && other.gameObject.tag.Equals("Enemy")) ||
+                (!_hitOnCooldown && other.gameObject.tag.Equals("Hazard")))
+            {
+                playerAnimator.SetTrigger("Hitted");
+                playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>().attackDmg;
+                if (playerManager.currentHealth <= 0)
+                    playerManager.Death();
+                _hitOnCooldown = true;
+                StartCoroutine(WaitForHit());
+            }
         }
-        
-        private void OnDrawGizmos()
+
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            Gizmos.DrawWireSphere(collider2D.bounds.center + new Vector3(playerData.AttackRange * _playerDirection, 0, 0), playerData.AttackRadius);
+            if ((!_hitOnCooldown && other.gameObject.tag.Equals("Enemy")) ||
+                (!_hitOnCooldown && other.gameObject.tag.Equals("Hazard")))
+            {
+                playerAnimator.SetTrigger("Hitted");
+                playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>().attackDmg;
+                if (playerManager.currentHealth <= 0)
+                    playerManager.Death();
+                _hitOnCooldown = true;
+                StartCoroutine(WaitForHit());
+
+            }
+        }
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if ((!_hitOnCooldown && other.gameObject.tag.Equals("Enemy")) ||
+                (!_hitOnCooldown && other.gameObject.tag.Equals("Hazard")))
+            {
+                playerAnimator.SetTrigger("Hitted");
+                playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>().attackDmg;
+                if (playerManager.currentHealth <= 0)
+                    playerManager.Death();
+                _hitOnCooldown = true;
+                StartCoroutine(WaitForHit());
+            }
+        }
+
+        IEnumerator WaitForHit()
+        {
+            yield return new WaitForSeconds(playerData.TakingDmgCooldown);
+            _hitOnCooldown = false;
         }
     }
 }

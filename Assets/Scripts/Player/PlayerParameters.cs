@@ -22,5 +22,6 @@ namespace Anura
         [field: SerializeField] [field: Range(0f, 10f)] public float AttackRange { get; private set; }
         [field: SerializeField] [field: Range(0f, 5f)] public float AttackRadius { get; private set; }
         [field: SerializeField] [field: Range(0f, 10f)] public float AttackCooldown { get; private set; }
+        [field: SerializeField] [field: Range(0f, 10f)] public float TakingDmgCooldown { get; private set; }
     }
 }
