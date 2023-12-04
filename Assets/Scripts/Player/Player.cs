@@ -47,13 +47,13 @@ namespace Anura
             else
                 _playerDirection = 1;
             DamageIndicator();
+            Attack();
         }
 
         private void FixedUpdate()
         {
             movementStateMachine.PhysicsUpdate();    
             AfterJump();
-            Attack();
         }
         
         public Vector2 MovementInput()
@@ -81,6 +81,13 @@ namespace Anura
             Vector2 boxSize = new Vector2(collider2D.size.x, playerData.GroundOffset);
             return Physics2D.BoxCast(boxOrigin, boxSize, 0, Vector2.down, playerData.GroundOffset, playerData.JumpableLayers);
         }
+        
+        public bool IsInsideTube()
+        {
+            Vector2 boxOrigin = new Vector2(collider2D.transform.position.x, collider2D.bounds.min.y);
+            Vector2 boxSize = new Vector2(collider2D.size.x, playerData.GroundOffset);
+            return Physics2D.BoxCast(boxOrigin, boxSize, 0, Vector2.down, playerData.GroundOffset, playerData.TubeLayers);
+        }
 
         public void Jump()
         {
@@ -100,7 +107,8 @@ namespace Anura
             if (input.actions["Attack"].triggered && !attackOnCooldown)
             {
                 attackOnCooldown = true;
-                playerManager.StartCoroutine(Attacking());
+                playerAnimator.SetTrigger("Attacking");
+                StartCoroutine(Attacking());
             }
         }
         
@@ -117,7 +125,7 @@ namespace Anura
             yield return new WaitForSeconds(playerData.AttackCooldown);
             attackOnCooldown = false;
         }
-
+        
         private void DamageIndicator()
         {
             _damageIndicator.position = collider2D.bounds.center + new Vector3((playerData.AttackRange + playerData.AttackRadius) * _playerDirection, 0, 0);
@@ -127,59 +135,88 @@ namespace Anura
         {
             if (!hitOnCooldown && other.gameObject.CompareTag("Enemy"))
             {
+                //playerAnimator.SetTrigger("Hitted");
                 playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>().attackDmg;
                 if (playerManager.currentHealth <= 0)
                     playerManager.Death();
                 hitOnCooldown = true;
-                playerManager.StartCoroutine(WaitForHit());
+                StartCoroutine(WaitForHit());
             }
-            if  (!hitOnCooldown && other.gameObject.layer.Equals(7))
+            if  (!hitOnCooldown && other.gameObject.CompareTag("Hazard"))
             {   
+                //playerAnimator.SetTrigger("Hitted");
                 playerManager.currentHealth -= 1;
                 if (playerManager.currentHealth <= 0)
                     playerManager.Death();
                 hitOnCooldown = true;
-                playerManager.StartCoroutine(WaitForHit());
+                StartCoroutine(WaitForHit());
             }  
         }
 
         private void OnCollisionStay2D(Collision2D other)
         {
-            if ((!hitOnCooldown && other.gameObject.CompareTag("Enemy")) ||
-                (!hitOnCooldown && other.gameObject.layer.Equals(7)))
+            if (!hitOnCooldown && other.gameObject.CompareTag("Enemy"))
             {
+                //playerAnimator.SetTrigger("Hitted");
                 playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>().attackDmg;
                 if (playerManager.currentHealth <= 0)
                     playerManager.Death();
                 hitOnCooldown = true;
-                playerManager.StartCoroutine(WaitForHit());
+                StartCoroutine(WaitForHit());
             }
+            if  (!hitOnCooldown && other.gameObject.CompareTag("Hazard"))
+            {   
+                //playerAnimator.SetTrigger("Hitted");
+                playerManager.currentHealth -= 1;
+                if (playerManager.currentHealth <= 0)
+                    playerManager.Death();
+                hitOnCooldown = true;
+                StartCoroutine(WaitForHit());
+            }  
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if ((!hitOnCooldown && other.gameObject.CompareTag("Enemy")) ||
-                (!hitOnCooldown && other.gameObject.layer.Equals(7)))
+            if (!hitOnCooldown && other.gameObject.CompareTag("Enemy"))
             {
-                playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>() == null ? 1 : other.gameObject.GetComponent<Enemy>().attackDmg;
+                //playerAnimator.SetTrigger("Hitted");
+                playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>().attackDmg;
                 if (playerManager.currentHealth <= 0)
                     playerManager.Death();
                 hitOnCooldown = true;
-                playerManager.StartCoroutine(WaitForHit());
+                StartCoroutine(WaitForHit());
             }
+            if  (!hitOnCooldown && other.gameObject.CompareTag("Hazard"))
+            {   
+                //playerAnimator.SetTrigger("Hitted");
+                playerManager.currentHealth -= 1;
+                if (playerManager.currentHealth <= 0)
+                    playerManager.Death();
+                hitOnCooldown = true;
+                StartCoroutine(WaitForHit());
+            }  
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if ((!hitOnCooldown && other.gameObject.CompareTag("Enemy")) ||
-                (!hitOnCooldown && other.gameObject.layer.Equals(7)))
+            if (!hitOnCooldown && other.gameObject.CompareTag("Enemy"))
             {
-                playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>() == null ? 1 : other.gameObject.GetComponent<Enemy>().attackDmg;
+                //playerAnimator.SetTrigger("Hitted");
+                playerManager.currentHealth -= other.gameObject.GetComponent<Enemy>().attackDmg;
                 if (playerManager.currentHealth <= 0)
                     playerManager.Death();
                 hitOnCooldown = true;
-                playerManager.StartCoroutine(WaitForHit());
+                StartCoroutine(WaitForHit());
             }
+            if  (!hitOnCooldown && other.gameObject.CompareTag("Hazard"))
+            {   
+                //playerAnimator.SetTrigger("Hitted");
+                playerManager.currentHealth -= 1;
+                if (playerManager.currentHealth <= 0)
+                    playerManager.Death();
+                hitOnCooldown = true;
+                StartCoroutine(WaitForHit());
+            }  
         }
 
         IEnumerator WaitForHit()

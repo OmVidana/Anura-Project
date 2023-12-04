@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Maze
   - Enemy
+  - Hazard
+  - Interactable
   layers:
   - Default
   - TransparentFX

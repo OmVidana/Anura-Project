@@ -29,12 +29,12 @@ namespace Anura
         public override void Update()
         {
             SwitchState();
+            _enemy.EnemyDirection();
         }
 
         public override void PhysicsUpdate()
         {
             _enemy.Move();
-            _enemy.EnemyDirection();
         }
 
         public override void SwitchState()

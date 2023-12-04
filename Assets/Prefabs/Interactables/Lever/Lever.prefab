@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3682695859487046536}
   m_Layer: 6
   m_Name: Lever
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efdbe77920a73bb4db8d2ffc7b095cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 3310388281624800048}
   _leverAnimator: {fileID: 4025037921876697903}
+  _playerAnimator: {fileID: 0}
+  _playerInput: {fileID: 3310388281624800048}
   _prompt: Press F

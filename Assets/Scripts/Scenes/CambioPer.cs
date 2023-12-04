@@ -17,7 +17,7 @@ public class CambioPer : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (_playerManager._input.actions["Switch"].triggered && !_playerManager.onCooldownSwitch && _playerManager.activePlayer.GetComponent<Player>().IsGrounded())
+        if (_playerManager._input.actions["Switch"].triggered && !_playerManager.onCooldownSwitch && _playerManager.activePlayer.GetComponent<Player>().IsGrounded() && !_playerManager.activePlayer.GetComponent<Player>().IsInsideTube())
         {
             spriteList.RemoveAt(0);
             spriteList.Add(Character.sprite);

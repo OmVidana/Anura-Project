@@ -16,6 +16,7 @@ namespace Anura
         [field: SerializeField] [field: Range(-25f, 0f)] public float MaxJumpDeceleration { get; private set; }
         [field: SerializeField] [field: Range(0f, 1f)] public float GroundOffset { get; private set; }
         [field: SerializeField] public LayerMask JumpableLayers { get; private set; }
+        [field: SerializeField] public LayerMask TubeLayers { get; private set; }
         [field: SerializeField] [field: Range(0, 99)] public int AttackDmg { get; private set; }
         [field: SerializeField] [field: Range(0f, 10f)] public float AttackRange { get; private set; }
         [field: SerializeField] [field: Range(0f, 5f)] public float AttackRadius { get; private set; }

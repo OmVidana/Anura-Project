@@ -19,10 +19,11 @@ namespace Anura
         protected internal GameObject activePlayer;
         private GameObject _disablePlayer;
         protected internal bool onCooldownSwitch;
+        private bool _insideTube;
         public PlayerInput _input;
         public CinemachineVirtualCamera vc;
         [SerializeField] private GameObject _gameOver;
-
+        
         private void Awake()
         {
             _input = GetComponent<PlayerInput>();
@@ -39,7 +40,7 @@ namespace Anura
 
         private void Update()
         {
-            if (_input.actions["Switch"].triggered && !onCooldownSwitch && activePlayer.GetComponent<Player>().IsGrounded())
+            if (_input.actions["Switch"].triggered && !onCooldownSwitch && activePlayer.GetComponent<Player>().IsGrounded() && !activePlayer.GetComponent<Player>().IsInsideTube())
             {
                 _disablePlayer.transform.position = activePlayer.transform.position + new Vector3(0, 0.5f, 0);
                 _disablePlayer.GetComponent<Player>().spriteRenderer.flipX = activePlayer.GetComponent<Player>().spriteRenderer.flipX;
@@ -63,7 +64,6 @@ namespace Anura
         {
             activePlayer.SetActive(false);
             GameObject.Find("DamageIndicator").SetActive(false);
-            // Load Scene
             _gameOver.SetActive(true);
         }
     }

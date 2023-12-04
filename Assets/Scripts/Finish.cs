@@ -18,5 +18,11 @@ namespace Anura
                 GFinish.SetActive(true);
             }
         }
+        
+        public void Cerrar()
+        {
+            Debug.Log("Cerrando juego");
+            Application.Quit();
+        }
     }
 }

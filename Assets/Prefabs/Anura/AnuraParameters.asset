@@ -20,9 +20,12 @@ MonoBehaviour:
   <GroundOffset>k__BackingField: 0.1
   <JumpableLayers>k__BackingField:
     serializedVersion: 2
-    m_Bits: 840
+    m_Bits: 776
+  <TubeLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 64
   <AttackDmg>k__BackingField: 2
-  <AttackRange>k__BackingField: 1
+  <AttackRange>k__BackingField: 1.1
   <AttackRadius>k__BackingField: 1
   <AttackCooldown>k__BackingField: 0.75
   <TakingDmgCooldown>k__BackingField: 2.5
