@@ -12,7 +12,7 @@ public class Vida : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Sprite[] spriteArray;
     public Image Health;
-    public int Life = 4;
+    public int Life = 8;
     // Start is called before the first frame update
     public void Start()
     {
@@ -20,8 +20,7 @@ public class Vida : MonoBehaviour
     }
 
 
-    // Update is called once per frame
-    public void Update()
+    public void ContVida()
     {
         if (Input.GetKeyDown("q"))
         {
@@ -30,16 +29,16 @@ public class Vida : MonoBehaviour
         }
         switch (Life)
         {
-            case 4:
+            case 8:
                 Health.sprite = spriteArray[0];
                 break;
-            case 3:
+            case 6:
                 Health.sprite = spriteArray[1];
                 break;
-            case 2:
+            case 4:
                 Health.sprite = spriteArray[2];
                 break;
-            case 1:
+            case 2:
                 Health.sprite = spriteArray[3];
                 break;
             case 0:
